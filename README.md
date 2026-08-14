@@ -69,20 +69,6 @@ The analysed parameters include:
 - wind waves;
 - ocean swell.
 
-## Repository structure
-
-```text
-virgo-seismic-analysis/
-│
-├── README.md
-├── requirements.txt
-│
-├── functions.py
-│
-├── general.ipynb
-│
-├── figures/
-```
 
 # Author
 
