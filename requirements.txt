@@ -1,0 +1,14 @@
+numpy
+pandas
+matplotlib
+scipy
+tqdm
+obspy
+requests
+gwosc
+h5py
+astropy
+seaborn
+holidays
+xarray
+netcdf4
