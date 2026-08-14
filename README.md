@@ -70,7 +70,7 @@ The analysed parameters include:
 - ocean swell.
 
 
-# Author
+## Author
 
 Clémence Georges
 
