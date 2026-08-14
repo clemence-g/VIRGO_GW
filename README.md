@@ -24,7 +24,10 @@ The main objectives of the project are:
 
 ## Data
 
-The project uses several sources of publicly available data.
+The project uses several sources of publicly available data. Raw and processed data are not included in this repository because some
+datasets can be large. The repository contains the code required to download and process the
+data.
+
 
 ### Seismic data
 
@@ -80,12 +83,6 @@ virgo-seismic-analysis/
 │
 ├── figures/
 ```
-
-# Data 
-Raw and processed data are not included in this repository because some
-datasets can be large.
-The repository contains the code required to download and process the
-data.
 
 # Author
 
