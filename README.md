@@ -77,7 +77,7 @@ Clémence Georges
 Master 1 Geophysics and Earth Imaging
 Université Grenoble Alpes
 
-# Internship
+## Internship
 
 This project was developed as part of a research internship on the
 analysis of seismic noise around gravitational-wave detectors.
