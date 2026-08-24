@@ -197,7 +197,7 @@ def pad_to_full_hour(st_hour):
     return x, fs
 
 def get_periodogram(st, title="PSD", plot=False):
-     """
+    """
     Calcule la densité spectrale de puissance (PSD) d'une heure de données sismologiques.
 
     Les données sont complétées à une heure complète si nécessaire, puis les
@@ -274,7 +274,7 @@ def PSD_by_h(stream):
     return np.array(psd_list), freq_list, date_list
 
 def psd_period(y, m1, d1, m2, d2,station="VRG01", remove_response = False):
-     """
+    """
     Calcule les PSD horaires des données sismologiques sur une période donnée.
 
     Les données MiniSEED de chaque journée sont chargées, divisées en fenêtres
@@ -668,7 +668,7 @@ def median_4_bis(all_psd, all_dates, freqs,limx=None, we=False, eq = False, p=80
 
 
 def get_eq(start, end):
-     """
+    """
     Récupère les événements sismiques autour du détecteur Virgo.
 
     Les séismes sont répartis en trois catégories selon leur distance au site
@@ -816,7 +816,7 @@ def add_legend(we, eq):
         plt.legend(handles=handles,loc="center left", bbox_to_anchor=(1, 0.5),fontsize=15)
 
 def get_anomaly(dates,data, p, n):
- """
+    """
     Identifie les périodes présentant des valeurs anormalement élevées.
 
     Une anomalie est définie comme une séquence d'au moins ``n`` valeurs
@@ -999,7 +999,7 @@ def day_night_ratio(df):
         print("Rapport jour/nuit :", day/night)
 
 def plot_events(df,run,offline_periods=None, lim = None,outfile=None):
-     """
+    """
     Représente les événements d'ondes gravitationnelles détectés au cours
     d'une campagne d'observation.
 
@@ -1536,7 +1536,7 @@ def PSD_strain_by_h(strain, start, end):
     return (np.array(psd_list), np.array(freq_list), pd.to_datetime(date_list, utc=True))
 
 def psd_strain_period(detector, gps_start, gps_end):
-     """
+    """
     Télécharge les données de strain et calcule leurs PSD sur une période donnée.
 
     Les données sont récupérées depuis GWOSC par fenêtres de 10 minutes.
@@ -1770,7 +1770,7 @@ def get_wind_speed(wind_file):
     return wind
 
 def plot_environment(file_temp, file_press, wind_file, rain_file, ocean_file, limx, p=80, n=5,outfile=None):
-     """
+    """
     Représente les conditions environnementales autour du site de Virgo.
 
     Les séries temporelles de température, pression atmosphérique, vent,
