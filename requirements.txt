@@ -1,14 +1,14 @@
 numpy
 pandas
 matplotlib
-scipy
 tqdm
+scipy
 obspy
 requests
 gwosc
-h5py
+gwpy
 astropy
 seaborn
-holidays
 xarray
 netcdf4
+holidays
