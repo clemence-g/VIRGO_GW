@@ -222,7 +222,6 @@ def get_periodogram(st, title="PSD", plot=False):
         Densité spectrale de puissance en dB.
     """
     x, fs = pad_to_full_hour(st)
-    
     nan_fraction = np.isnan(x).mean()
 
     completeness = 1 - nan_fraction
@@ -305,7 +304,6 @@ def psd_period(y, m1, d1, m2, d2,station="VRG01", remove_response = False):
         Fréquences associées aux PSD.
     """
     days = dates_between(date(y,m1,d1), date(y,m2,d2))
-
     all_psd = []
     all_dates = []
 
@@ -597,7 +595,7 @@ def median_4_bis(all_psd, all_dates, freqs,limx=None, we=False, eq = False, p=80
     axes[0].plot(x, y1, color='blue')
     axes[0].grid(True)
     axes[0].set_ylabel("0.01 - 0.1 Hz")
-    axes[0].set_ylim(-165,-90)
+    axes[0].set_ylim(-160,-100)
     axes[0].set_xlim(a,b)
     
     anomaly_periods_0 = get_anomaly(x, y1, p, n)
@@ -613,7 +611,7 @@ def median_4_bis(all_psd, all_dates, freqs,limx=None, we=False, eq = False, p=80
     axes[1].grid(True)
     axes[1].set_ylabel("0.1 - 1 Hz")
     axes[1].set_xlim(a,b)
-    axes[1].set_ylim(-175,-125)
+    axes[1].set_ylim(-160,-130)
     
     anomaly_periods_1 = get_anomaly(x, y2, p, n)
     for start, end in anomaly_periods_1:
@@ -629,7 +627,7 @@ def median_4_bis(all_psd, all_dates, freqs,limx=None, we=False, eq = False, p=80
     axes[2].grid(True)
     axes[2].set_ylabel("1 - 5 Hz")
     axes[2].set_xlim(a,b)
-    axes[2].set_ylim(-190,-130)
+    axes[2].set_ylim(-170,-145)
         
     anomaly_periods_2 = get_anomaly(x, y3, p, n)
     for start, end in anomaly_periods_2:
@@ -647,7 +645,7 @@ def median_4_bis(all_psd, all_dates, freqs,limx=None, we=False, eq = False, p=80
     axes[3].tick_params(axis="x", rotation=45)
     axes[3].set_ylabel("5 - 50 Hz")
     axes[3].set_xlim(a,b)
-    axes[3].set_ylim(-200,-145)
+    axes[3].set_ylim(-180,-155)
     
     anomaly_periods_3 = get_anomaly(x, y4, p, n)
     for start, end in anomaly_periods_3:
@@ -739,21 +737,21 @@ def add_eq_med(start_date, end_date):
         [t.datetime],
         alpha=min(mag/8, 1),
         color="green",
-        linestyle="dotted")
+        linestyle="dotted",label="_nolegend_" )
         
     for mag,t in zip(mag_regional,time_regional):
             ax.axvline(
         [t.datetime],
         alpha=min(mag/8, 1),
         color="green",
-        linestyle="dashdot")
+        linestyle="dashdot",label="_nolegend_")
         
     for mag,t in zip(mag_global,time_global):
             ax.axvline(
         [t.datetime ],
         alpha=min(mag/8, 1),
         color="green",
-        linestyle="dashed")
+        linestyle="dashed",label="_nolegend_")
         
     return True
 
@@ -780,35 +778,79 @@ def add_legend(we, eq):
 
     if eq:
         handles.append(
-            mlines.Line2D(
-                [],
-                [],
-                color="green",
-                linestyle="dotted", 
-                label="Séismes locaux \n(r<2.7° et mag >2.5)"))
-        
+        mlines.Line2D(
+            [0], [0],
+            color="green",
+            linestyle=":",
+            linewidth=2,
+            label="Séismes locaux \n(r<2.7° et mag >2.5)"
+        )
+    )
+
+        handles.append(
+        mlines.Line2D(
+            [0], [0],
+            color="green",
+            linestyle="-.",
+            linewidth=2,
+            label="Séismes régionaux \n(2.7<r<9° et mag >4.5)"
+        )
+    )
+
+        handles.append(
+        mlines.Line2D(
+            [0], [0],
+            color="green",
+            linestyle="--",
+            linewidth=2,
+            label="Séismes globaux \n(9<r<180° et mag >6.5)"
+        )
+    )
         handles.append(
             mlines.Line2D(
-                [],
-                [],
-                color="green",
-                linestyle="dashdot",
-                label="Séismes régionaux \n(2.7<r<9° et mag >4.5)"))
-        
-        handles.append(
-            mlines.Line2D(
-                [],
-                [],
-                color="green",
-                linestyle="dashed",
-                label="Séismes globaux \n(9<r<180° et mag >6.5)"))
-        
-        handles.append(
-            mlines.Line2D(
-                [],
-                [],
+                [0, 1], [0, 0],
                 linestyle="None",
-                label=r"$\mathbf{Magnitude}$ : l'opacité des traits augmente avec la magnitude"
+                label=r"$\mathbf{Magnitude}$ :"
+            )
+        )
+
+        handles.append(
+            mlines.Line2D(
+                [],
+                [],
+                marker="|",
+                color="green",
+                alpha=0.25,
+                linestyle="None",
+                markersize=12,
+                markeredgewidth=2,
+                label="Faible"
+            )
+        )
+
+        handles.append(
+            mlines.Line2D(
+                [0, 1], [0, 0],
+                marker="|",
+                color="green",
+                alpha=0.6,
+                linestyle="None",
+                markersize=12,
+                markeredgewidth=2,
+                label="Intermédiaire"
+            )
+        )
+
+        handles.append(
+            mlines.Line2D(
+                [0, 1], [0, 0],
+                marker="|",
+                color="green",
+                alpha=1,
+                linestyle="None",
+                markersize=12,
+                markeredgewidth=2,
+                label="Forte"
             )
         )
         
@@ -895,9 +937,9 @@ def day_or_night(date):
     date_utc = date.tz_localize("UTC")
     local_time = date_utc.tz_convert("Europe/Rome")
     if 7<=local_time.hour <19:
-        result = "jour"
+        result = "day"
     else:
-        result = "nuit"
+        result = "night"
         
     return result
 
@@ -988,7 +1030,7 @@ def day_night_ratio(df):
     
     for _, row in df.iterrows():
         result = row['day_or_night_V1']
-        if result=="jour":
+        if result=="day":
             day+=1
         elif result =="nuit":
             night+=1
@@ -1057,7 +1099,7 @@ def plot_events(df,run,offline_periods=None, lim = None,outfile=None):
             row["date"],
             row["luminosity_distance"],
             s=mass*5,
-            color="orange" if row["day_or_night_V1"]=="jour" else "dodgerblue",
+            color="orange" if row["day_or_night_V1"]=="day" else "dodgerblue",
             alpha=alpha)
     
     plt.grid(True)
@@ -1384,12 +1426,16 @@ def plot_sensitivity(df,type="BNS range",xlim=None,ylim=None,we=False, eq = Fals
         add_weekends(a,b)
     if eq :
         eq=add_eq_med(df["UTCend"].min(),df["UTCend"].max())
-        
+
+    if type == "BNS range":
+        label = "BNS range (Mpc)"
+    if type == "Duty cycle":
+        label = "Duty cycle (%)"
     ax.plot(x, y)
     ax.fill_between(x,y,alpha=0.3)
-    ax.set_ylabel(type, size =15)
+    ax.set_ylabel(label, size =15)
     ax.set_xlabel("Date", size=15)
-    ax.set_title(f"Évolution temporelle du {type} \npour la période {a}-{b}", size=25)
+    ax.set_title(f"Évolution temporelle du {label} \npour la période {a}-{b}", size=25)
     
     if ylim:
         c,d=ylim
@@ -1418,23 +1464,51 @@ def get_median_profile(df,param_1,param_2,dt=0.1,window=1):
         
     return param_range,median_profile
 
-def plot_bns_param(df,param_1,param_2,xlim=None,ylim=None,dt=0.1,window=1, title=None,outfile=None):
-    range,median_profile = get_median_profile(df,param_1,param_2,dt,window)
+def plot_bns_param(df,param_1,param_2,mode = "median", degree = 3,xlim=None,ylim=None,dt=0.1,window=1, title=None,outfile=None):
+    
     plt.figure(figsize=(10, 6))
     sns.scatterplot(data=df,x=param_2,y=param_1, hue='day_or_night', palette={
-        "jour": "orange",
-        "nuit": "dodgerblue"
+        "day": "orange",
+        "night": "dodgerblue"
     },legend="brief")
+    
+    if param_1 == "BNS range":
+        label = "BNS range (Mpc)"
+    elif param_1 == "Duty cycle":
+        label = "Duty cycle (%)"
 
-    plt.plot(
-        range,
+    if mode == "median":
+        param_range,median_profile = get_median_profile(df,param_1,param_2,dt,window)
+
+        plt.plot(
+        param_range,
         median_profile,
         color="red",
         linewidth=2,
         label=f"Médiane glissante, dt = {dt}, window = {window}")
+    elif mode == "reg":
+        data = df[[param_2, param_1]].dropna()
+
+        x = data[param_2].values
+        y = data[param_1].values
+
+        coefficients = np.polyfit(x, y, degree)
+
+        x_reg = np.linspace(x.min(), x.max(), 500)
+
+        y_reg = np.polyval(coefficients, x_reg)
+
+        plt.plot(
+        x_reg,
+        y_reg,
+        color="red",
+        linewidth=2,
+        label=f"Régression polynomiale (degré {degree})"
+        )
+
 
     plt.xlabel(param_2, size = 15)
-    plt.ylabel(param_1, size = 15)
+    plt.ylabel(label, size = 15)
     
     if xlim:
         plt.xlim(*xlim)
